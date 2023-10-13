@@ -38,7 +38,7 @@ function getArticle(doc) {
 async function onDocumentLoaded() {
     const article = getArticle(document)
     if (!article) {
-        console.log("No Medium Login: no article found" + window.location.href)
+        console.log("No Medium Login: no article found")
         return
     }
 
@@ -56,7 +56,7 @@ async function onDocumentLoaded() {
         return
     }
 
-    var shadow = article.attachShadow({mode: "open"});
+    var shadow = article.attachShadow({mode: "open"})
     cache.querySelectorAll("style").forEach(style => {
         shadow.appendChild(style)
     })
@@ -65,12 +65,20 @@ async function onDocumentLoaded() {
     shadow.appendChild(fullArticle)
 }
 
-window.addEventListener("popstate", () => {
-    onDocumentLoaded()
-})
+window.addEventListener("popstate", onDocumentLoaded)
 
 if (document.readyState === "complete") {
     onDocumentLoaded()
+
+    const title = document.querySelector("title")
+    let previousURL = window.location.href
+    const observer = new MutationObserver(() => {
+        if (previousURL !== window.location.href) {
+            previousURL = window.location.href
+            onDocumentLoaded()
+        }
+    })
+    observer.observe(title, {subtree: true, childList: true})
 } else {
     window.addEventListener("DOMContentLoaded", onDocumentLoaded)
 }
