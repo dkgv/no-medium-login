@@ -56,7 +56,7 @@ async function onDocumentLoaded() {
         return
     }
 
-    var shadow = article.attachShadow({mode: "open"})
+    const shadow = article.attachShadow({mode: "open"})
     cache.querySelectorAll("style").forEach(style => {
         shadow.appendChild(style)
     })
@@ -70,7 +70,6 @@ window.addEventListener("popstate", onDocumentLoaded)
 if (document.readyState === "complete") {
     onDocumentLoaded()
 
-    const title = document.querySelector("title")
     let previousURL = window.location.href
     const observer = new MutationObserver(() => {
         if (previousURL !== window.location.href) {
@@ -78,6 +77,8 @@ if (document.readyState === "complete") {
             onDocumentLoaded()
         }
     })
+    
+    const title = document.querySelector("title")
     observer.observe(title, {subtree: true, childList: true})
 } else {
     window.addEventListener("DOMContentLoaded", onDocumentLoaded)

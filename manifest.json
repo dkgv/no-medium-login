@@ -11,7 +11,8 @@
         {
             "matches": [
                 "https://medium.com/*",
-                "https://*.medium.com/*"
+                "https://*.medium.com/*",
+                "https://towardsdatascience.com/*"
             ],
             "js": [
                 "no-medium-login.js"
