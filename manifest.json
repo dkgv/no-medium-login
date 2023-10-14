@@ -1,11 +1,12 @@
 {
     "manifest_version": 2,
     "name": "No Medium Login",
-    "version": "TODO",
+    "version": "1.0.0",
     "description": "Read full Medium articles without logging in.",
     "homepage_url": "https://github.com/dkgv/no-medium-login",
     "icons": {
-        "48": "icons/48.png"
+        "48": "icons/48.png",
+        "128": "icons/128.png"
     },
     "content_scripts": [
         {
