@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  publish-firefox:
+    name: Publish Firefox extension
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Build
+        id: web-ext-build
+        uses: kewisch/action-web-ext@v1
+        with:
+          cmd: build
+          source: src
+          filename: no-medium-login.zip
+
+      - name: Publish
+        uses: yayuyokitano/firefox-addon@v0.0.6-alpha
+        with:
+          api_key: ${{ secrets.JWT_ISSUER }}
+          api_secret: ${{ secrets.JWT_SECRET }}
+          guid: '{9338c206-3387-482b-bf92-5e2a157fd5be}'
+          xpi_path: no-medium-login.zip
